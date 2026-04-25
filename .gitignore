@@ -23,9 +23,16 @@ server/downloads/*.zip
 Thumbs.db
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
+
+# Local one-off scripts
+scripts/vercel-deploy.js
 
 # Build output
 dist/
 build/
+
+# Vercel CLI
+.vercel/

@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "nodemailer": "^8.0.6"
+  },
+  "devDependencies": {
+    "vercel": "^52.0.0"
   }
 }
