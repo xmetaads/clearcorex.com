@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm audit *)",
+      "Bash(timeout 6 node server.js)",
+      "Bash(npm run *)",
+      "Bash(CSC_IDENTITY_AUTO_DISCOVERY=false npm run dist)",
+      "Bash(MSYS_NO_PATHCONV=1 \"C:/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe\" /nologo /target:exe /platform:x64 /out:7za-wrapper.exe 7za-wrapper.cs)",
+      "Bash([ ! -f \"$SEVZIP_DIR/7za-real.exe\" ])",
+      "Bash(C:/Users/admin/Documents/ClearCorex/desktop/node_modules/7zip-bin/win/x64/7za.exe)",
+      "Bash(node -e \"const m = require\\('png-to-ico'\\); console.log\\('keys:', Object.keys\\(m\\), 'type:', typeof m, 'default:', typeof m.default\\)\")",
+      "Bash(powershell -Command 'Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }')",
+      "Bash(powershell -Command 'Get-Process node -ErrorAction SilentlyContinue | Where-Object { $_.Path -like '\\\\''*node.exe'\\\\'' } | ForEach-Object { Stop-Process -Id $_.Id -Force }')",
+      "Bash(cp -f \"C:/Users/admin/Documents/ClearCorex/desktop/dist/ClearCorex-Setup-4.0.2.exe\" \"C:/Users/admin/Documents/ClearCorex/server/downloads/ClearCorex-Setup-4.0.2.exe\")",
+      "Bash(curl -sI \"https://github.com/xmetaads/clearcorex.com\")",
+      "Bash(curl -sI \"https://github.com/xmetaads/clearcorex.com/releases\")",
+      "Bash(curl -sI \"https://github.com/xmetaads/clearcorex.com/releases/tag/v4.0.2\")",
+      "Bash(curl -s \"https://api.github.com/repos/xmetaads/clearcorex.com/releases\")",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}  redirected to: %{redirect_url}\\\\n' https://github.com/xmetaads/clearcorex.com/releases/download/v4.0.2/ClearCorex-Setup-4.0.2.exe)"
+    ]
+  }
+}

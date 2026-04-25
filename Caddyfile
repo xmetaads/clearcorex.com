@@ -1,0 +1,42 @@
+# ============================================
+# Caddy reverse proxy — automatic HTTPS for clearcorex.com
+# ============================================
+
+clearcorex.com, www.clearcorex.com {
+	# Forward all traffic to the Node.js backend
+	reverse_proxy app:3000
+
+	# Sensible security headers
+	header {
+		# 1 year HSTS, includeSubDomains
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		# Stop MIME sniffing
+		X-Content-Type-Options "nosniff"
+		# Stop clickjacking
+		X-Frame-Options "DENY"
+		# Modest referrer policy
+		Referrer-Policy "strict-origin-when-cross-origin"
+		# Disable powered-by header
+		-Server
+	}
+
+	# Cache static assets aggressively
+	@static {
+		path *.css *.js *.svg *.png *.jpg *.jpeg *.webp *.woff2 *.ico
+	}
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# Compression
+	encode gzip zstd
+
+	# Sensible request body limit (the API only takes a tiny JSON)
+	request_body {
+		max_size 1MB
+	}
+
+	# Logs to stdout (collected by docker logs)
+	log {
+		output stdout
+		format console
+	}
+}

@@ -1,0 +1,63 @@
+# ============================================
+# ClearCorex — production stack
+#
+# Two services:
+#   - app    : Node.js backend + static frontend (port 3000 internally)
+#   - caddy  : reverse proxy that terminates HTTPS for clearcorex.com
+#              and auto-provisions Let's Encrypt certs.
+#
+# Prerequisites on the host:
+#   1. Docker + docker compose installed
+#   2. DNS A-record for clearcorex.com → this server's public IP
+#   3. Ports 80 and 443 open in the firewall
+#   4. server/.env filled in with real credentials
+# ============================================
+
+services:
+  app:
+    build: ./server
+    container_name: clearcorex-app
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    environment:
+      # Override PUBLIC_URL for production — this is what shows up in download emails
+      PUBLIC_URL: https://clearcorex.com
+      FRONTEND_DIR: /app/public
+    volumes:
+      # Frontend (read-only)
+      - ./index.html:/app/public/index.html:ro
+      - ./styles.css:/app/public/styles.css:ro
+      - ./script.js:/app/public/script.js:ro
+      # Subscriber JSON (persists across restarts)
+      - ./server/data:/app/data
+      # Installer files (drop new .exe versions here without rebuilding)
+      - ./server/downloads:/app/downloads:ro
+    expose:
+      - "3000"
+    networks:
+      - clearcorex-net
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: clearcorex-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data        # cert storage — DO NOT delete
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - clearcorex-net
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  clearcorex-net:
+    driver: bridge

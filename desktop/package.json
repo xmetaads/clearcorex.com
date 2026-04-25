@@ -1,0 +1,63 @@
+{
+  "name": "clearcorex-desktop",
+  "version": "4.0.2",
+  "description": "ClearCorex Desktop — Enterprise email data platform",
+  "main": "main.js",
+  "author": "SmartCore LLC",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icon": "node scripts/generate-icon.js",
+    "predist": "node scripts/generate-icon.js",
+    "dist": "electron-builder --win --x64",
+    "postdist": "node scripts/copy-installer.js"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "electron": "^33.0.2",
+    "electron-builder": "^25.1.8",
+    "png-to-ico": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.smartcore.clearcorex",
+    "productName": "ClearCorex",
+    "copyright": "© 2026 SmartCore LLC",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "!**/.DS_Store"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "ClearCorex-Setup-${version}.${ext}",
+      "signtoolOptions": null
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ClearCorex",
+      "deleteAppDataOnUninstall": true,
+      "runAfterFinish": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    }
+  }
+}

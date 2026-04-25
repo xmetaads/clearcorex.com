@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ClearCorex — The enterprise-grade email data platform. Validate, deduplicate, extract, and clean email lists at scale. Trusted by 12,000+ companies worldwide." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>ClearCorex — Enterprise Email Data Platform</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3 6.5L12 12l9-5.5M3 6.5v11L12 23l9-5.5v-11' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ===== Announcement Banner ===== -->
+  <div class="announce-bar" id="announceBar">
+    <div class="container announce-inner">
+      <span class="announce-tag" data-i18n="announce.tag">NEW</span>
+      <span data-i18n="announce.text">ClearCorex 4.0 is here — AI-powered email risk scoring, now in beta.</span>
+      <a href="#" class="announce-link" data-i18n="announce.cta">Read the changelog →</a>
+      <button class="announce-close" id="announceClose" aria-label="Dismiss">&times;</button>
+    </div>
+  </div>
+
+  <!-- ===== Navigation ===== -->
+  <header class="nav-wrap" id="navWrap">
+    <nav class="nav container">
+      <a href="#" class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 6.5L12 12l9-5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 6.5v11L12 23l9-5.5v-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 14l3 2 5-4" stroke="#22d3a4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">ClearCorex</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li class="has-mega">
+          <button class="nav-trigger" data-i18n="nav.product">Product <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
+          <div class="mega-panel">
+            <div class="mega-grid">
+              <a href="#features" class="mega-item">
+                <span class="mega-ico icon-blue"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div><strong data-i18n="nav.mega.validation">Email Validation</strong><span data-i18n="nav.mega.validation_d">Real-time SMTP & MX checks</span></div>
+              </a>
+              <a href="#features" class="mega-item">
+                <span class="mega-ico icon-purple"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg></span>
+                <div><strong data-i18n="nav.mega.dedup">Deduplication</strong><span data-i18n="nav.mega.dedup_d">Smart fuzzy matching engine</span></div>
+              </a>
+              <a href="#features" class="mega-item">
+                <span class="mega-ico icon-green"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div><strong data-i18n="nav.mega.extract">Data Extraction</strong><span data-i18n="nav.mega.extract_d">Pull emails from any source</span></div>
+              </a>
+              <a href="#features" class="mega-item">
+                <span class="mega-ico icon-orange"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" stroke="currentColor" stroke-width="2"/></svg></span>
+                <div><strong data-i18n="nav.mega.normalize">Normalization</strong><span data-i18n="nav.mega.normalize_d">Clean & standardize at scale</span></div>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#solutions" data-i18n="nav.solutions">Solutions</a></li>
+        <li><a href="#download" data-i18n="nav.download">Download</a></li>
+        <li><a href="#customers" data-i18n="nav.customers">Customers</a></li>
+        <li><a href="#resources" data-i18n="nav.resources">Resources</a></li>
+        <li><a href="#docs" data-i18n="nav.docs">Docs</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="lang-switch" id="langSwitch">
+          <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" stroke="currentColor" stroke-width="2"/></svg>
+            <span id="langCurrent">EN</span>
+            <svg class="caret" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu" role="menu">
+            <li><button data-lang="en" role="menuitem">🇺🇸 English</button></li>
+            <li><button data-lang="vi" role="menuitem">🇻🇳 Tiếng Việt</button></li>
+          </ul>
+        </div>
+
+        <a href="#download" class="btn btn-primary btn-sm" data-i18n="nav.cta">Download</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <a href="#" class="eyebrow">
+          <span class="eyebrow-tag" data-i18n="hero.eyebrow_tag">v4.0</span>
+          <span data-i18n="hero.eyebrow">AI-powered email risk scoring is live</span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+
+        <h1 class="hero-title">
+          <span data-i18n="hero.title_1">The email data platform</span><br/>
+          <span data-i18n="hero.title_2">built for</span>
+          <span class="grad-text" data-i18n="hero.title_3">modern teams</span>
+        </h1>
+        <p class="hero-sub" data-i18n="hero.sub">
+          Validate, deduplicate, extract, and clean millions of email addresses in minutes — with the speed, accuracy, and security trusted by 12,000+ growth teams worldwide.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#download" class="btn btn-primary">
+            <span data-i18n="hero.cta_primary">Start for free</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#demo" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="currentColor"/></svg>
+            <span data-i18n="hero.cta_secondary">Watch the demo</span>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="hero.meta_1">Free for up to 1,000 emails/mo</span></div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="hero.meta_2">No credit card required</span></div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="hero.meta_3">SOC 2 & GDPR compliant</span></div>
+        </div>
+      </div>
+
+      <!-- Hero Product Preview -->
+      <div class="hero-visual reveal">
+        <div class="product-window">
+          <div class="window-bar">
+            <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+            <span class="window-title">ClearCorex — campaign-q1.csv</span>
+            <span class="window-status"><span class="status-dot"></span> <span data-i18n="hero.product.live">Live</span></span>
+          </div>
+          <div class="product-body">
+            <aside class="product-side">
+              <div class="side-section">
+                <div class="side-label" data-i18n="hero.product.workspace">Workspace</div>
+                <div class="side-item active"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12l2-2 4 4 8-8 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="hero.product.dashboard">Dashboard</span></div>
+                <div class="side-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero.product.lists">Lists</span> <span class="side-badge">128</span></div>
+                <div class="side-item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero.product.jobs">Jobs</span></div>
+                <div class="side-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 14l4-4 4 4 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero.product.analytics">Analytics</span></div>
+                <div class="side-item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero.product.settings">Settings</span></div>
+              </div>
+            </aside>
+
+            <div class="product-main">
+              <div class="product-toolbar">
+                <div class="search-pill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> <span data-i18n="hero.product.search">Search emails…</span></div>
+                <div class="toolbar-actions">
+                  <span class="chip chip-blue" data-i18n="hero.product.processing">Processing</span>
+                  <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2"/></svg></span>
+                </div>
+              </div>
+
+              <div class="kpi-row">
+                <div class="kpi"><div class="kpi-num" data-anim="847,239">847,239</div><div class="kpi-lbl" data-i18n="hero.product.kpi_valid">Valid</div><div class="kpi-trend up">▲ 12.4%</div></div>
+                <div class="kpi"><div class="kpi-num bad" data-anim="42,108">42,108</div><div class="kpi-lbl" data-i18n="hero.product.kpi_invalid">Invalid</div><div class="kpi-trend down">▼ 3.1%</div></div>
+                <div class="kpi"><div class="kpi-num warn" data-anim="18,543">18,543</div><div class="kpi-lbl" data-i18n="hero.product.kpi_dup">Duplicates</div><div class="kpi-trend down">▼ 8.7%</div></div>
+                <div class="kpi"><div class="kpi-num accent" data-anim="99.7">99.7</div><div class="kpi-lbl" data-i18n="hero.product.kpi_acc">Accuracy %</div><div class="kpi-trend up">▲ 0.3%</div></div>
+              </div>
+
+              <div class="product-table">
+                <div class="ptr ptr-head"><span data-i18n="hero.product.col_email">Email</span><span data-i18n="hero.product.col_status">Status</span><span data-i18n="hero.product.col_score">Score</span><span data-i18n="hero.product.col_provider">Provider</span></div>
+                <div class="ptr"><span class="mono">anna@company.com</span><span class="tag green">● Valid</span><span class="mono">98</span><span class="muted">Google</span></div>
+                <div class="ptr"><span class="mono">team@brand.io</span><span class="tag green">● Valid</span><span class="mono">95</span><span class="muted">Custom</span></div>
+                <div class="ptr"><span class="mono strike">john@@gmail</span><span class="tag red">● Invalid</span><span class="mono">0</span><span class="muted">—</span></div>
+                <div class="ptr"><span class="mono">user@mail.com</span><span class="tag yellow">● Duplicate</span><span class="mono">82</span><span class="muted">Yahoo</span></div>
+                <div class="ptr"><span class="mono">sales@shop.vn</span><span class="tag green">● Valid</span><span class="mono">94</span><span class="muted">Custom</span></div>
+                <div class="ptr"><span class="mono">contact@gmial.com</span><span class="tag red">● Typo</span><span class="mono">12</span><span class="muted">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating notification card -->
+          <div class="float-card float-1">
+            <div class="fc-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#22d3a4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="fc-title" data-i18n="hero.product.toast_title">Job completed</div><div class="fc-sub"><span data-i18n="hero.product.toast_sub">1.2M emails cleaned in</span> 47s</div></div>
+          </div>
+          <div class="float-card float-2">
+            <div class="fc-spark"><span></span><span></span><span></span><span></span><span></span></div>
+            <div><div class="fc-title">+38.2%</div><div class="fc-sub" data-i18n="hero.product.deliv">Delivery rate</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trusted by marquee -->
+    <div class="marquee-wrap container reveal">
+      <p class="marquee-label" data-i18n="hero.trusted">Trusted by 12,000+ teams at</p>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="marquee-logo">NovaMail</span>
+          <span class="marquee-logo">Brightly</span>
+          <span class="marquee-logo">DataPulse</span>
+          <span class="marquee-logo">Linear</span>
+          <span class="marquee-logo">Reachly</span>
+          <span class="marquee-logo">CampaignLab</span>
+          <span class="marquee-logo">Outreach</span>
+          <span class="marquee-logo">Persona</span>
+          <span class="marquee-logo">Stripe</span>
+          <span class="marquee-logo">Notion</span>
+          <!-- duplicate for seamless loop -->
+          <span class="marquee-logo">NovaMail</span>
+          <span class="marquee-logo">Brightly</span>
+          <span class="marquee-logo">DataPulse</span>
+          <span class="marquee-logo">Linear</span>
+          <span class="marquee-logo">Reachly</span>
+          <span class="marquee-logo">CampaignLab</span>
+          <span class="marquee-logo">Outreach</span>
+          <span class="marquee-logo">Persona</span>
+          <span class="marquee-logo">Stripe</span>
+          <span class="marquee-logo">Notion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats Bar ===== -->
+  <section class="stats-bar">
+    <div class="container stats-grid">
+      <div class="stat-block reveal">
+        <div class="stat-num"><span data-counter="12000" data-suffix="+">0</span></div>
+        <div class="stat-lbl" data-i18n="stats.companies">Companies worldwide</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-num"><span data-counter="2.4" data-decimals="1">0</span><span class="suffix">B+</span></div>
+        <div class="stat-lbl" data-i18n="stats.processed">Emails processed</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-num"><span data-counter="99.7" data-decimals="1">0</span><span class="suffix">%</span></div>
+        <div class="stat-lbl" data-i18n="stats.accuracy">Accuracy rate</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-num"><span data-counter="38" data-suffix="%">0</span></div>
+        <div class="stat-lbl" data-i18n="stats.deliverability">Avg. deliverability lift</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features (Bento) ===== -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="features.kicker">PLATFORM</span>
+        <h2 class="section-title">
+          <span data-i18n="features.title_1">Everything you need to keep email data</span>
+          <span class="grad-text" data-i18n="features.title_2">healthy</span>
+        </h2>
+        <p class="section-sub" data-i18n="features.sub">
+          A unified platform that replaces a half-dozen point tools — built on a Rust engine that scales from your laptop to your data warehouse.
+        </p>
+      </div>
+
+      <div class="bento">
+        <article class="bento-card bento-lg reveal">
+          <div class="bento-content">
+            <span class="feat-badge" data-i18n="features.f1.badge">Deep Verification</span>
+            <h3 data-i18n="features.f1.title">20+ verification layers per email</h3>
+            <p data-i18n="features.f1.desc">DNS lookups (MX, SPF, DKIM, DMARC), real SMTP handshakes, mailbox-existence probes, catch-all detection, spam-trap & abuse lists, role-based filtering, and AI bounce-risk scoring — combined into a single 0–100 confidence score per address.</p>
+          </div>
+          <div class="bento-vis vis-checks">
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c1">Syntax & format (RFC 5322)</span></div>
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c2">DNS / MX record verification</span></div>
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c3">SMTP-level mailbox check</span></div>
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c4">Catch-all & greylist handling</span></div>
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c5">Disposable & spam-trap detection</span></div>
+            <div class="check-row"><span class="check-tick">✓</span> <span data-i18n="features.f1.c6">AI risk scoring (0–100)</span></div>
+          </div>
+        </article>
+
+        <article class="bento-card reveal">
+          <div class="bento-content">
+            <span class="feat-badge purple" data-i18n="features.f2.badge">Deduplication</span>
+            <h3 data-i18n="features.f2.title">Smart dedup engine</h3>
+            <p data-i18n="features.f2.desc">Catches Gmail aliases, dot variants, casing, and fuzzy duplicates other tools miss.</p>
+          </div>
+          <div class="bento-vis vis-stack">
+            <div class="stack-row"><span class="mono">user@gmail.com</span><span class="check">✓</span></div>
+            <div class="stack-row dim"><span class="mono">u.s.e.r@gmail.com</span><span class="x">✕</span></div>
+            <div class="stack-row dim"><span class="mono">user+promo@gmail.com</span><span class="x">✕</span></div>
+            <div class="stack-row dim"><span class="mono">USER@GMAIL.COM</span><span class="x">✕</span></div>
+          </div>
+        </article>
+
+        <article class="bento-card reveal">
+          <div class="bento-content">
+            <span class="feat-badge green" data-i18n="features.f3.badge">Extraction</span>
+            <h3 data-i18n="features.f3.title">Pull emails from anywhere</h3>
+            <p data-i18n="features.f3.desc">Parse CSV, JSON, HTML, PDF, log files. Custom regex supported.</p>
+          </div>
+          <div class="bento-vis vis-files">
+            <div class="file-chip">.csv</div>
+            <div class="file-chip">.json</div>
+            <div class="file-chip">.html</div>
+            <div class="file-chip">.pdf</div>
+            <div class="file-chip">.txt</div>
+            <div class="file-chip">.xlsx</div>
+            <div class="file-chip">.log</div>
+            <div class="file-chip">.eml</div>
+          </div>
+        </article>
+
+        <article class="bento-card reveal">
+          <div class="bento-content">
+            <span class="feat-badge orange" data-i18n="features.f4.badge">AI Risk</span>
+            <h3 data-i18n="features.f4.title">AI-powered risk scoring</h3>
+            <p data-i18n="features.f4.desc">A 0–100 score per email, predicting bounce risk before send.</p>
+          </div>
+          <div class="bento-vis">
+            <div class="risk-bar"><div class="risk-fill" style="width:92%"></div><span>92</span></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:78%"></div><span>78</span></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:34%"></div><span>34</span></div>
+          </div>
+        </article>
+
+        <article class="bento-card bento-lg reveal">
+          <div class="bento-content">
+            <span class="feat-badge blue" data-i18n="features.f5.badge">Integrations</span>
+            <h3 data-i18n="features.f5.title">Connects to your entire stack</h3>
+            <p data-i18n="features.f5.desc">Native integrations with Mailchimp, HubSpot, Salesforce, Snowflake, Postgres, and 60+ more. REST API and webhooks included.</p>
+          </div>
+          <div class="bento-vis vis-int">
+            <div class="int-grid">
+              <div class="int-cell">M</div>
+              <div class="int-cell">H</div>
+              <div class="int-cell">S</div>
+              <div class="int-cell">P</div>
+              <div class="int-cell">G</div>
+              <div class="int-cell">Z</div>
+              <div class="int-cell">N</div>
+              <div class="int-cell">+60</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How It Works ===== -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="how.kicker">HOW IT WORKS</span>
+        <h2 class="section-title">
+          <span data-i18n="how.title_1">From messy data to clean lists</span><br/>
+          <span class="grad-text" data-i18n="how.title_2">in three steps</span>
+        </h2>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3 data-i18n="how.s1.title">Connect or upload</h3>
+          <p data-i18n="how.s1.desc">Drag-and-drop a file, paste a list, or connect your CRM, ESP, or warehouse with one click.</p>
+        </div>
+        <div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3 data-i18n="how.s2.title">Clean & enrich</h3>
+          <p data-i18n="how.s2.desc">Our Rust engine validates, dedupes, normalizes, and scores every email — at millions per minute.</p>
+        </div>
+        <div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3 data-i18n="how.s3.title">Export & sync</h3>
+          <p data-i18n="how.s3.desc">Push the clean list back into your tools automatically, or export as CSV / JSON / Parquet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Live Verification Engine Demo ===== -->
+  <section id="demo" class="section section-dark">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker dark" data-i18n="demo.kicker">LIVE VERIFICATION ENGINE</span>
+        <h2 class="section-title">
+          <span data-i18n="demo.title_1">Watch 20+ checks per email</span><br/>
+          <span class="grad-text" data-i18n="demo.title_2">running live</span>
+        </h2>
+        <p class="section-sub" data-i18n="demo.sub">
+          From syntax and DNS lookups to SMTP handshakes, mailbox verification, catch-all detection, and AI risk scoring — every email goes through 20+ checks before it ever leaves your list.
+        </p>
+      </div>
+
+      <div class="autodemo reveal">
+        <div class="window-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="window-title">ClearCorex Verification Engine</span>
+          <span class="window-status"><span class="status-dot"></span> <span data-i18n="demo.engine_live">Live · Auto-playing</span></span>
+        </div>
+
+        <div class="autodemo-grid">
+          <!-- Column 1: Incoming Queue -->
+          <div class="ad-col">
+            <div class="ad-col-head">
+              <span class="ad-col-title" data-i18n="demo.col_queue">Incoming queue</span>
+              <span class="ad-col-meta"><span id="adQueueCount">14,293</span></span>
+            </div>
+            <div class="ad-queue" id="adQueue">
+              <!-- populated by JS -->
+            </div>
+          </div>
+
+          <!-- Column 2: Verification Pipeline -->
+          <div class="ad-col ad-col-pipeline">
+            <div class="ad-col-head">
+              <span class="ad-col-title" data-i18n="demo.col_pipeline">Verification pipeline</span>
+              <span class="ad-col-meta engine-running"><span class="status-dot"></span> <span data-i18n="demo.engine_running">Running</span></span>
+            </div>
+            <div class="ad-current">
+              <div class="ad-current-label" data-i18n="demo.now_checking">Now checking</div>
+              <div class="ad-current-email" id="adCurrent">—</div>
+            </div>
+            <ul class="ad-stages" id="adStages">
+              <li data-stage="syntax"><span class="ad-stage-name" data-i18n="demo.stage.syntax">Syntax & format check</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="mx"><span class="ad-stage-name" data-i18n="demo.stage.mx">DNS / MX record lookup</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="smtp"><span class="ad-stage-name" data-i18n="demo.stage.smtp">SMTP handshake</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="mailbox"><span class="ad-stage-name" data-i18n="demo.stage.mailbox">Mailbox exists</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="catchall"><span class="ad-stage-name" data-i18n="demo.stage.catchall">Catch-all detection</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="disposable"><span class="ad-stage-name" data-i18n="demo.stage.disposable">Disposable / spam trap</span><span class="ad-stage-icon"></span></li>
+              <li data-stage="ai"><span class="ad-stage-name" data-i18n="demo.stage.ai">AI bounce-risk score</span><span class="ad-stage-icon"></span></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Live Results -->
+          <div class="ad-col">
+            <div class="ad-col-head">
+              <span class="ad-col-title" data-i18n="demo.col_results">Live results</span>
+              <span class="ad-col-meta"><span id="adProcessed">0</span> <span data-i18n="demo.processed">processed</span></span>
+            </div>
+
+            <div class="ad-stats">
+              <div class="ad-stat"><div class="ad-stat-bar"><div class="ad-stat-fill green" id="adFillValid" style="width:0%"></div></div><div class="ad-stat-row"><span class="ad-stat-dot green"></span><span data-i18n="demo.s_valid">Valid</span><span class="ad-stat-num" id="adValid">0</span></div></div>
+              <div class="ad-stat"><div class="ad-stat-bar"><div class="ad-stat-fill red" id="adFillInvalid" style="width:0%"></div></div><div class="ad-stat-row"><span class="ad-stat-dot red"></span><span data-i18n="demo.s_invalid">Invalid</span><span class="ad-stat-num" id="adInvalid">0</span></div></div>
+              <div class="ad-stat"><div class="ad-stat-bar"><div class="ad-stat-fill yellow" id="adFillRisky" style="width:0%"></div></div><div class="ad-stat-row"><span class="ad-stat-dot yellow"></span><span data-i18n="demo.s_risky">Risky / Catch-all</span><span class="ad-stat-num" id="adRisky">0</span></div></div>
+              <div class="ad-stat"><div class="ad-stat-bar"><div class="ad-stat-fill purple" id="adFillDispo" style="width:0%"></div></div><div class="ad-stat-row"><span class="ad-stat-dot purple"></span><span data-i18n="demo.s_dispo">Disposable / Spam trap</span><span class="ad-stat-num" id="adDispo">0</span></div></div>
+            </div>
+
+            <div class="ad-stream-label" data-i18n="demo.recent">Recently verified</div>
+            <div class="ad-stream" id="adStream">
+              <!-- populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="autodemo-foot">
+          <span class="foot-pill" data-i18n="demo.foot.checks">20+ checks per email</span>
+          <span class="foot-sep">·</span>
+          <span data-i18n="demo.foot.dns">MX / SPF / DKIM / DMARC</span>
+          <span class="foot-sep">·</span>
+          <span data-i18n="demo.foot.smtp">Real SMTP verification</span>
+          <span class="foot-sep">·</span>
+          <span data-i18n="demo.foot.spam">Spam trap & abuse detection</span>
+          <span class="foot-sep">·</span>
+          <span data-i18n="demo.foot.catch">Catch-all & greylist handling</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Solutions / Industries ===== -->
+  <section id="solutions" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="sol.kicker">SOLUTIONS</span>
+        <h2 class="section-title">
+          <span data-i18n="sol.title_1">Built for every team that</span>
+          <span class="grad-text" data-i18n="sol.title_2">touches email</span>
+        </h2>
+      </div>
+      <div class="solutions-grid">
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s1.title">Marketing</h4>
+          <p data-i18n="sol.s1.desc">Lift open rates and protect sender reputation across every campaign.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s2.title">Sales & RevOps</h4>
+          <p data-i18n="sol.s2.desc">Verify leads at the point of capture; keep your CRM clean automatically.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s3.title">Data Engineering</h4>
+          <p data-i18n="sol.s3.desc">Process billions of records in your data warehouse with our SDK & API.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18M7 14l4-4 4 4 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s4.title">Growth & Lifecycle</h4>
+          <p data-i18n="sol.s4.desc">Run experiments on truly clean cohorts, not noise from bad addresses.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s5.title">Agencies</h4>
+          <p data-i18n="sol.s5.desc">Manage many clients & lists from one workspace, with white-label exports.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+        <a href="#" class="sol-card reveal">
+          <div class="sol-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7l-8 4-8-4M20 7v10l-8 4M20 7l-8-4-8 4v10l8 4" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <h4 data-i18n="sol.s6.title">Enterprise</h4>
+          <p data-i18n="sol.s6.desc">SSO, SOC 2 Type II, custom DPA, and 24/7 dedicated support.</p>
+          <span class="sol-link" data-i18n="sol.learn">Learn more →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Integrations ===== -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="int.kicker">INTEGRATIONS</span>
+        <h2 class="section-title">
+          <span data-i18n="int.title_1">60+ integrations.</span>
+          <span class="grad-text" data-i18n="int.title_2">Zero friction.</span>
+        </h2>
+        <p class="section-sub" data-i18n="int.sub">Connect ClearCorex to the tools your team already uses — in seconds.</p>
+      </div>
+      <div class="int-list reveal">
+        <div class="int-tile">Mailchimp</div>
+        <div class="int-tile">HubSpot</div>
+        <div class="int-tile">Salesforce</div>
+        <div class="int-tile">Klaviyo</div>
+        <div class="int-tile">Snowflake</div>
+        <div class="int-tile">Postgres</div>
+        <div class="int-tile">Google Sheets</div>
+        <div class="int-tile">Zapier</div>
+        <div class="int-tile">Airtable</div>
+        <div class="int-tile">Segment</div>
+        <div class="int-tile">SendGrid</div>
+        <div class="int-tile">Iterable</div>
+        <div class="int-tile">Marketo</div>
+        <div class="int-tile">Pipedrive</div>
+        <div class="int-tile">Slack</div>
+        <div class="int-tile">Webhook</div>
+      </div>
+      <div class="int-cta reveal">
+        <a href="#" class="btn btn-ghost"><span data-i18n="int.cta">Browse all integrations</span> →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section id="customers" class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="test.kicker">CUSTOMERS</span>
+        <h2 class="section-title">
+          <span data-i18n="test.title_1">Loved by teams</span>
+          <span class="grad-text" data-i18n="test.title_2">at every scale</span>
+        </h2>
+      </div>
+
+      <div class="testimonial-feature reveal">
+        <div class="quote-mark">"</div>
+        <p class="big-quote" data-i18n="test.feat.quote">ClearCorex paid for itself in the first week. Our deliverability went from 71% to 96%, and the team stopped manually scrubbing lists in spreadsheets. It's now a critical part of our growth stack.</p>
+        <div class="quote-author">
+          <div class="avatar">SC</div>
+          <div>
+            <strong>Sarah Chen</strong>
+            <span data-i18n="test.feat.role">VP of Growth, NovaMail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-grid">
+        <article class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test.t1.quote">We process 40M emails a quarter through ClearCorex. The Rust engine is unreal — it's the fastest tool in our entire stack.</p>
+          <div class="testi-author"><div class="avatar sm">DK</div><div><strong>David Kim</strong><span data-i18n="test.t1.role">Data Lead, Brightly</span></div></div>
+        </article>
+        <article class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test.t2.quote">Switched from three other tools to one. Cleaner data, fewer integrations to maintain, half the cost. Easy decision.</p>
+          <div class="testi-author"><div class="avatar sm">MA</div><div><strong>Maya Adler</strong><span data-i18n="test.t2.role">Head of Lifecycle, Reachly</span></div></div>
+        </article>
+        <article class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p data-i18n="test.t3.quote">The API and webhook setup took 20 minutes. We now validate every signup in real time. Bounce rate dropped 64%.</p>
+          <div class="testi-author"><div class="avatar sm">JP</div><div><strong>Jordan Park</strong><span data-i18n="test.t3.role">Engineering Manager, CampaignLab</span></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Download ===== -->
+  <section id="download" class="section section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="dl.kicker">DOWNLOAD</span>
+        <h2 class="section-title">
+          <span data-i18n="dl.title_1">100% free.</span>
+          <span class="grad-text" data-i18n="dl.title_2">Forever.</span>
+        </h2>
+        <p class="section-sub" data-i18n="dl.sub">Download ClearCorex Desktop for Windows. Every feature unlocked. No paywalls, no upsells, no credit card.</p>
+      </div>
+
+      <div class="dl-card reveal">
+        <div class="dl-card-left">
+          <div class="dl-os-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 12V6.75L9 5.43V11.91L3 12zm17-9v8.75L10 12V5.21L20 3zM3 13l6 .09v6.81l-6-1.15V13zm17 .25V22l-10-1.91V13L20 13.25z"/></svg>
+            <span data-i18n="dl.os">Windows 10 / 11 (64-bit)</span>
+          </div>
+          <h3 class="dl-h" data-i18n="dl.heading">ClearCorex Desktop</h3>
+          <p class="dl-desc" data-i18n="dl.desc">The full verification engine, on your machine. Process millions of emails offline — your data never leaves your computer.</p>
+
+          <ul class="dl-feats">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="dl.f1">All 20+ verification checks included</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="dl.f2">Unlimited email processing</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="dl.f3">Works fully offline — your data stays local</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="dl.f4">Free updates for life</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="dl.f5">No account, no telemetry, no nonsense</span></li>
+          </ul>
+        </div>
+
+        <div class="dl-card-right">
+          <div class="dl-meta-row">
+            <div class="dl-meta">
+              <span class="dl-meta-lbl" data-i18n="dl.size">Size</span>
+              <span class="dl-meta-val">78 MB</span>
+            </div>
+            <div class="dl-meta">
+              <span class="dl-meta-lbl" data-i18n="dl.version">Version</span>
+              <span class="dl-meta-val">4.0.2</span>
+            </div>
+            <div class="dl-meta">
+              <span class="dl-meta-lbl" data-i18n="dl.updated">Updated</span>
+              <span class="dl-meta-val">2026-04-22</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg dl-main-btn" id="dlOpenBtn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="dl.btn">Download for Windows</span>
+          </button>
+
+          <p class="dl-note" data-i18n="dl.note">We'll ask for your email so we can notify you about new versions and security updates. No marketing spam — unsubscribe anytime.</p>
+
+          <div class="dl-trust-row">
+            <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="dl.trust1">Code-signed</span></span>
+            <span><svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="dl.trust2">Virus-free (VirusTotal verified)</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Download Modal ===== -->
+  <div class="modal-overlay" id="dlModal" role="dialog" aria-modal="true" aria-labelledby="dlModalTitle" hidden>
+    <div class="modal">
+      <button class="modal-close" id="dlModalClose" aria-label="Close">&times;</button>
+
+      <div class="modal-body" id="dlModalForm">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 id="dlModalTitle" data-i18n="modal.title">Almost ready</h3>
+        <p data-i18n="modal.sub">Enter your email — we'll send you the download link plus a heads-up whenever a new version ships. No marketing emails, ever.</p>
+
+        <form id="dlForm" class="modal-form" novalidate>
+          <input type="email" id="dlEmail" placeholder="you@company.com" required data-i18n-attr="placeholder:modal.placeholder" />
+          <button type="submit" class="btn btn-primary" id="dlSubmit">
+            <span class="dl-submit-label" data-i18n="modal.submit">Download</span>
+            <span class="dl-spinner" aria-hidden="true"></span>
+          </button>
+          <p class="modal-error" id="dlError" hidden></p>
+        </form>
+
+        <p class="modal-fine" data-i18n="modal.fine">By continuing, you agree to receive product update emails. We use your address only for these notifications.</p>
+      </div>
+
+      <div class="modal-body modal-success" id="dlModalSuccess" hidden>
+        <div class="modal-icon success">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-i18n="modal.ok_title">Your download is starting</h3>
+        <p data-i18n="modal.ok_sub">Check your inbox in a moment — we've sent the download link plus a confirmation. The download should also begin automatically.</p>
+        <a href="#" class="btn btn-primary" id="dlManualLink">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="modal.ok_btn">Click here if it didn't start</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Comparison Table ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="comp.kicker">COMPARISON</span>
+        <h2 class="section-title">
+          <span data-i18n="comp.title_1">Why teams switch</span>
+          <span class="grad-text" data-i18n="comp.title_2">to ClearCorex</span>
+        </h2>
+      </div>
+      <div class="compare-wrap reveal">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="us"><span class="brand-mark sm"><svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5L12 12l9-5.5M3 6.5v11L12 23l9-5.5v-11" stroke="currentColor" stroke-width="2"/></svg></span> ClearCorex</th>
+              <th data-i18n="comp.legacy">Legacy validators</th>
+              <th data-i18n="comp.scripts">In-house scripts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="comp.r1">Speed (1M emails)</td><td class="us"><strong>&lt; 47s</strong></td><td>~12 min</td><td>2+ hours</td></tr>
+            <tr><td data-i18n="comp.r2">Accuracy</td><td class="us"><strong>99.7%</strong></td><td>~92%</td><td>varies</td></tr>
+            <tr><td data-i18n="comp.r3">AI risk scoring</td><td class="us">✓</td><td>—</td><td>—</td></tr>
+            <tr><td data-i18n="comp.r4">60+ integrations</td><td class="us">✓</td><td>~10</td><td>—</td></tr>
+            <tr><td data-i18n="comp.r5">SOC 2 Type II</td><td class="us">✓</td><td>some</td><td>—</td></tr>
+            <tr><td data-i18n="comp.r6">Self-hosted option</td><td class="us">✓</td><td>—</td><td>✓</td></tr>
+            <tr><td data-i18n="comp.r7">Setup time</td><td class="us"><strong>&lt; 2 min</strong></td><td>1–2 days</td><td>weeks</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Security ===== -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="security-grid">
+        <div class="reveal">
+          <span class="kicker dark" data-i18n="sec.kicker">SECURITY & COMPLIANCE</span>
+          <h2 class="section-title" style="text-align:left;margin-bottom:20px">
+            <span data-i18n="sec.title_1">Enterprise-grade security,</span><br/>
+            <span class="grad-text" data-i18n="sec.title_2">built in from day one</span>
+          </h2>
+          <p class="section-sub" style="text-align:left">
+            <span data-i18n="sec.sub">Your data is encrypted at rest with AES-256 and in transit with TLS 1.3. We undergo annual third-party SOC 2 Type II audits and never train models on customer data.</span>
+          </p>
+          <div class="security-feats">
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f1">SOC 2 Type II audited</span></div>
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f2">GDPR & CCPA compliant</span></div>
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f3">ISO 27001 certified</span></div>
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f4">HIPAA-ready (Enterprise)</span></div>
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f5">Data residency: US, EU, APAC</span></div>
+            <div><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> <span data-i18n="sec.f6">99.99% uptime SLA</span></div>
+          </div>
+          <a href="#" class="btn btn-light" data-i18n="sec.cta">View Trust Center →</a>
+        </div>
+        <div class="security-badges reveal">
+          <div class="badge-card">SOC 2</div>
+          <div class="badge-card">GDPR</div>
+          <div class="badge-card">ISO 27001</div>
+          <div class="badge-card">HIPAA</div>
+          <div class="badge-card">CCPA</div>
+          <div class="badge-card">PCI DSS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker" data-i18n="faq.kicker">FAQ</span>
+        <h2 class="section-title">
+          <span data-i18n="faq.title_1">Frequently asked</span>
+          <span class="grad-text" data-i18n="faq.title_2">questions</span>
+        </h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item" open>
+          <summary><span data-i18n="faq.q1">How accurate is ClearCorex's email verification?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a1">We benchmark at 99.7% accuracy across a 50M-email evaluation set. We perform syntax checks, MX record lookups, SMTP-level handshakes, disposable-domain detection, role-based filtering, and AI risk scoring — combined into a single 0–100 confidence score per address.</div>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q2">Is my data secure?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a2">Yes. Data is encrypted at rest (AES-256) and in transit (TLS 1.3). We are SOC 2 Type II audited and ISO 27001 certified. We never train models on customer data, and we offer self-hosted and on-prem deployments for the most regulated environments.</div>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q3">How fast can I get started?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a3">Under two minutes. Sign up, drag in a CSV (or paste a list), and click Clean. For ongoing automation, our REST API and 60+ integrations get you wired into your stack within an hour.</div>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q4">Which platforms does ClearCorex support?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a4">ClearCorex Desktop is available for Windows 10 and 11 (64-bit). It's a 78 MB native installer, runs fully offline, and never uploads your data anywhere. macOS and Linux versions are on the roadmap.</div>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q5">Is it really 100% free? What's the catch?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a5">No catch. ClearCorex Desktop is free forever, with every feature unlocked, no email or volume caps, no upsell. We ask for your email only so we can notify you about new versions and security patches — and you can unsubscribe any time.</div>
+        </details>
+        <details class="faq-item">
+          <summary><span data-i18n="faq.q6">Why do you need my email to download?</span> <span class="faq-icon">+</span></summary>
+          <div class="faq-body" data-i18n="faq.a6">So we can send you the download link and notify you when a new version is released — including critical security updates. We never share your email, never use it for marketing, and you can opt out at any time with one click.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-card reveal">
+        <div class="cta-bg" aria-hidden="true"></div>
+        <div class="cta-content">
+          <span class="kicker light" data-i18n="cta.kicker">GET STARTED</span>
+          <h2>
+            <span data-i18n="cta.title_1">Ready to clean</span>
+            <span class="grad-text" data-i18n="cta.title_2">your email data?</span>
+          </h2>
+          <p data-i18n="cta.sub">Join 12,000+ teams shipping cleaner campaigns with ClearCorex. 100% free, forever.</p>
+
+          <div class="cta-actions">
+            <button class="btn btn-light btn-lg" id="ctaDlBtn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 12V6.75L9 5.43V11.91L3 12zm17-9v8.75L10 12V5.21L20 3zM3 13l6 .09v6.81l-6-1.15V13zm17 .25V22l-10-1.91V13L20 13.25z"/></svg>
+              <span data-i18n="cta.dl">Download for Windows — Free</span>
+            </button>
+          </div>
+
+          <div class="cta-meta">
+            <span data-i18n="cta.meta_1">100% free</span>
+            <span class="dot-sep">·</span>
+            <span data-i18n="cta.meta_2">No account required</span>
+            <span class="dot-sep">·</span>
+            <span data-i18n="cta.meta_3">Works offline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5L12 12l9-5.5M3 6.5v11L12 23l9-5.5v-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14l3 2 5-4" stroke="#22d3a4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="brand-text">ClearCorex</span>
+          </a>
+          <p class="footer-desc" data-i18n="footer.desc">The enterprise email data platform. A product by SmartCore LLC.</p>
+          <div class="footer-status"><span class="status-dot"></span> <span data-i18n="footer.status">All systems operational</span></div>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.8-.8-1.9-1.3-3.1-1.3-2.4 0-4.3 1.9-4.3 4.3 0 .3 0 .7.1 1C7.7 9 4.1 7 1.7 4c-.4.6-.6 1.4-.6 2.2 0 1.5.8 2.8 1.9 3.6-.7 0-1.4-.2-2-.5v.1c0 2.1 1.5 3.8 3.4 4.2-.4.1-.7.2-1.1.2-.3 0-.5 0-.8-.1.5 1.7 2.1 3 4 3-1.5 1.1-3.3 1.8-5.3 1.8H0c1.9 1.2 4.1 1.9 6.5 1.9 7.8 0 12-6.5 12-12v-.5c.8-.6 1.5-1.3 2.1-2.1z"/></svg></a>
+            <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.3 18.3v-8H5.7v8h2.6zM7 9.2a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11.3 9.1v-4.4c0-2.3-1.2-3.4-2.9-3.4-1.3 0-1.9.7-2.3 1.3v-1.1H10.5c0 .7 0 8 0 8h2.6v-4.5c0-.2 0-.5.1-.6.2-.5.6-1 1.4-1 1 0 1.4.7 1.4 1.8v4.3h2.5z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-1C16.7 3.5 12 3.5 12 3.5s-4.7 0-7.9.2c-.4.1-1.4.1-2.2 1C1.2 5.4 1 7 1 7S.8 8.9.8 10.7v1.7c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 2 .9 2.4 1 1.7.2 7.6.2 7.6.2s4.7 0 7.9-.2c.4-.1 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-1.7c.1-1.9-.1-3.7-.1-3.7zM10 14V8l5 3-5 3z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h5 data-i18n="footer.product">Product</h5>
+            <ul>
+              <li><a href="#features" data-i18n="footer.features">Features</a></li>
+              <li><a href="#download" data-i18n="footer.download">Download</a></li>
+              <li><a href="#solutions" data-i18n="footer.solutions">Solutions</a></li>
+              <li><a href="#" data-i18n="footer.integrations">Integrations</a></li>
+              <li><a href="#" data-i18n="footer.changelog">Changelog</a></li>
+              <li><a href="#" data-i18n="footer.roadmap">Roadmap</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5 data-i18n="footer.company">Company</h5>
+            <ul>
+              <li><a href="#" data-i18n="footer.about">About</a></li>
+              <li><a href="#" data-i18n="footer.customers">Customers</a></li>
+              <li><a href="#" data-i18n="footer.careers">Careers <span class="hire-tag">Hiring</span></a></li>
+              <li><a href="#" data-i18n="footer.press">Press</a></li>
+              <li><a href="#" data-i18n="footer.contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5 data-i18n="footer.resources">Resources</h5>
+            <ul>
+              <li><a href="#" data-i18n="footer.blog">Blog</a></li>
+              <li><a href="#" data-i18n="footer.docs">Documentation</a></li>
+              <li><a href="#" data-i18n="footer.api">API Reference</a></li>
+              <li><a href="#" data-i18n="footer.guides">Guides</a></li>
+              <li><a href="#" data-i18n="footer.community">Community</a></li>
+              <li><a href="#" data-i18n="footer.support">Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5 data-i18n="footer.legal">Legal & Trust</h5>
+            <ul>
+              <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+              <li><a href="#" data-i18n="footer.terms">Terms of Service</a></li>
+              <li><a href="#" data-i18n="footer.dpa">DPA</a></li>
+              <li><a href="#" data-i18n="footer.security">Security</a></li>
+              <li><a href="#" data-i18n="footer.trust">Trust Center</a></li>
+              <li><a href="#" data-i18n="footer.cookies">Cookie Settings</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 SmartCore LLC. All rights reserved.</p>
+        <div class="footer-bottom-right">
+          <a href="mailto:support@clearcorex.com">support@clearcorex.com</a>
+          <span class="dot-sep">·</span>
+          <a href="#">English</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Cookie Banner ===== -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="13" r="1" fill="currentColor"/><circle cx="11" cy="15" r="1" fill="currentColor"/></svg>
+      <p data-i18n="cookie.text">We use cookies to improve your experience and analyze usage. See our <a href="#">cookie policy</a>.</p>
+      <div class="cookie-actions">
+        <button class="btn btn-ghost btn-sm" id="cookieDecline" data-i18n="cookie.decline">Decline</button>
+        <button class="btn btn-primary btn-sm" id="cookieAccept" data-i18n="cookie.accept">Accept all</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Back to Top ===== -->
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
