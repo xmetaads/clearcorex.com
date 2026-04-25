@@ -39,6 +39,11 @@
 /* ===== Reset ===== */
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
+
+/* `[hidden]` attribute MUST always win over flex / grid / block display rules.
+   Without this, elements like .results, .toast, .pipeline (which use display:flex)
+   stay visible despite the hidden attribute being set. */
+[hidden] { display: none !important; }
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;

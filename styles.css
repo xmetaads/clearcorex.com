@@ -71,6 +71,9 @@
 /* ===== Reset ===== */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+/* Defensive: `[hidden]` must always beat display:flex / display:grid / display:block. */
+[hidden] { display: none !important; }
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
