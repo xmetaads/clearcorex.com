@@ -1,0 +1,43 @@
+{
+  "name": "clearcorex-desktop",
+  "version": "4.0.2",
+  "description": "ClearCorex Desktop — Enterprise email data platform",
+  "main": "main.js",
+  "author": "SmartCore LLC",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64",
+    "postdist": "node scripts/copy-installer.js"
+  },
+  "devDependencies": {
+    "electron": "^33.0.2",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.smartcore.clearcorex",
+    "productName": "ClearCorex",
+    "copyright": "© 2026 SmartCore LLC",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "!**/.DS_Store"
+    ],
+    "win": {
+      "target": [
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "artifactName": "ClearCorex-Setup-${version}.${ext}",
+      "signtoolOptions": null
+    },
+    "portable": {
+      "artifactName": "ClearCorex-Setup-${version}.${ext}"
+    }
+  }
+}

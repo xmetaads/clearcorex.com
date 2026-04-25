@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self';" />
+  <title>ClearCorex</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== Custom titlebar (drag region + window controls) ===== -->
+  <div class="titlebar">
+    <div class="titlebar-drag">
+      <span class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 6.5L12 12l9-5.5M3 6.5v11L12 23l9-5.5v-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 14l3 2 5-4" stroke="#22d3a4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">ClearCorex</span>
+        <span class="brand-tag">v4.0.2</span>
+      </span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="tc-btn" id="tcMin" aria-label="Minimize">&minus;</button>
+      <button class="tc-btn tc-close" id="tcClose" aria-label="Close">&times;</button>
+    </div>
+  </div>
+
+  <!-- ===== App layout ===== -->
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="side-nav">
+        <button class="side-item active" data-view="verify">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Verify</span>
+        </button>
+        <button class="side-item" data-view="history">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 109-9M3 4v5h5M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Recent jobs</span>
+        </button>
+        <button class="side-item" data-view="docs">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Docs</span>
+        </button>
+      </nav>
+
+      <div class="side-foot">
+        <div class="usage-card">
+          <div class="usage-row">
+            <span>Edition</span>
+            <strong>Free</strong>
+          </div>
+          <div class="usage-row">
+            <span>Mode</span>
+            <strong class="green">● Offline</strong>
+          </div>
+          <div class="usage-row">
+            <span>Build</span>
+            <strong>4.0.2</strong>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- View: Verify -->
+      <section class="view view-verify active" id="viewVerify">
+
+        <header class="view-head">
+          <div>
+            <h1>Email Verification</h1>
+            <p>Validate, deduplicate, and score email lists at desktop speed — fully offline.</p>
+          </div>
+          <div class="view-head-actions">
+            <button class="btn btn-ghost" id="btnReset">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M1 4v6h6 M3.5 15a9 9 0 105.7-9.5L1 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Reset</span>
+            </button>
+            <button class="btn btn-ghost" id="btnOpen">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Open file</span>
+            </button>
+            <button class="btn btn-primary" id="btnRun">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 9-14 9V3z" fill="currentColor"/></svg>
+              <span>Run cleanup</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- KPI strip -->
+        <div class="kpi-strip">
+          <div class="kpi"><span class="kpi-num" id="kpiTotal">0</span><span class="kpi-lbl">Total</span></div>
+          <div class="kpi"><span class="kpi-num green" id="kpiValid">0</span><span class="kpi-lbl">Valid</span></div>
+          <div class="kpi"><span class="kpi-num red" id="kpiInvalid">0</span><span class="kpi-lbl">Invalid</span></div>
+          <div class="kpi"><span class="kpi-num yellow" id="kpiRisky">0</span><span class="kpi-lbl">Risky</span></div>
+          <div class="kpi"><span class="kpi-num purple" id="kpiDispo">0</span><span class="kpi-lbl">Disposable</span></div>
+          <div class="kpi"><span class="kpi-num blue" id="kpiDup">0</span><span class="kpi-lbl">Duplicates</span></div>
+        </div>
+
+        <div class="workspace">
+
+          <!-- Input panel -->
+          <div class="panel input-panel">
+            <div class="panel-head">
+              <span class="panel-title">Input</span>
+              <span class="panel-meta" id="inputMeta">Paste emails or open a file</span>
+            </div>
+
+            <div class="dropzone" id="dropzone">
+              <div class="dropzone-inner">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4 M17 8l-5-5-5 5 M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p><strong>Drop a file here</strong></p>
+                <p class="dropzone-hint">.csv · .txt · .tsv · .json · .log — up to 50 MB</p>
+              </div>
+            </div>
+
+            <div class="textarea-wrap">
+              <label for="emailsInput">Or paste emails (one per line)</label>
+              <textarea id="emailsInput" spellcheck="false" placeholder="anna@company.com&#10;sales@shop.vn&#10;john.doe@@gmail&#10;..."></textarea>
+            </div>
+          </div>
+
+          <!-- Output / Pipeline panel -->
+          <div class="panel output-panel">
+            <div class="panel-head">
+              <span class="panel-title">Engine</span>
+              <span class="panel-meta" id="engineMeta">Idle</span>
+            </div>
+
+            <!-- Idle / pipeline display -->
+            <div class="pipeline" id="pipeline">
+              <div class="pipe-progress">
+                <div class="pipe-bar"><div class="pipe-fill" id="pipeFill"></div></div>
+                <div class="pipe-stats">
+                  <span id="pipePct">0%</span>
+                  <span id="pipeCount">0 / 0</span>
+                </div>
+              </div>
+
+              <ul class="pipe-stages" id="pipeStages">
+                <li data-stage="syntax"><span class="ps-dot"></span><span class="ps-name">Syntax & format check</span><span class="ps-status">Idle</span></li>
+                <li data-stage="domain"><span class="ps-dot"></span><span class="ps-name">Domain & MX heuristics</span><span class="ps-status">Idle</span></li>
+                <li data-stage="dispo"><span class="ps-dot"></span><span class="ps-name">Disposable / spam-trap</span><span class="ps-status">Idle</span></li>
+                <li data-stage="role"><span class="ps-dot"></span><span class="ps-name">Role & free-provider tag</span><span class="ps-status">Idle</span></li>
+                <li data-stage="dedup"><span class="ps-dot"></span><span class="ps-name">Smart deduplication</span><span class="ps-status">Idle</span></li>
+                <li data-stage="score"><span class="ps-dot"></span><span class="ps-name">Risk scoring (0–100)</span><span class="ps-status">Idle</span></li>
+              </ul>
+            </div>
+
+            <!-- Results table -->
+            <div class="results" id="results" hidden>
+              <div class="tabs">
+                <button class="tab active" data-tab="valid">Valid <span class="t-count" id="tcValid">0</span></button>
+                <button class="tab" data-tab="invalid">Invalid <span class="t-count bad" id="tcInvalid">0</span></button>
+                <button class="tab" data-tab="risky">Risky <span class="t-count warn" id="tcRisky">0</span></button>
+                <button class="tab" data-tab="dispo">Disposable <span class="t-count purple" id="tcDispo">0</span></button>
+                <button class="tab" data-tab="dup">Duplicates <span class="t-count blue" id="tcDup">0</span></button>
+              </div>
+
+              <div class="table-wrap">
+                <table class="rtable">
+                  <thead>
+                    <tr>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Score</th>
+                      <th>Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rtbody"></tbody>
+                </table>
+                <div class="empty" id="emptyState" hidden>
+                  <p>No rows in this category.</p>
+                </div>
+              </div>
+
+              <div class="results-actions">
+                <button class="btn btn-ghost" id="btnExportValid">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4 M7 10l5 5 5-5 M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Export valid</span>
+                </button>
+                <button class="btn btn-ghost" id="btnExportAll">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4 M7 10l5 5 5-5 M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Export all (with status)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Recent jobs -->
+      <section class="view" id="viewHistory">
+        <header class="view-head">
+          <div>
+            <h1>Recent jobs</h1>
+            <p>Your last 20 cleaning runs in this session. Nothing is written to disk.</p>
+          </div>
+        </header>
+        <div class="history-list" id="historyList">
+          <div class="empty-card">
+            <p>No jobs yet — run your first cleanup to see history here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: Docs -->
+      <section class="view" id="viewDocs">
+        <header class="view-head">
+          <div>
+            <h1>Quick reference</h1>
+            <p>What each verification stage does, and what the status flags mean.</p>
+          </div>
+        </header>
+        <div class="docs-grid">
+          <article class="doc-card">
+            <h3>Syntax & format</h3>
+            <p>RFC 5322 regex check. Catches missing <code>@</code>, double <code>@</code>, illegal characters, and TLD-less domains.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Domain & MX heuristics</h3>
+            <p>Detects typo domains (<code>gmial.com</code>, <code>yhoo.com</code>), placeholder TLDs, and obvious dead domains. Real DNS lookups are available in the cloud edition.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Disposable / spam-trap</h3>
+            <p>Matches against a curated list of disposable mailbox providers (Mailinator, Yopmail, etc.) and known spam-trap patterns.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Role & free-provider tag</h3>
+            <p>Flags role-based addresses (<code>info@</code>, <code>sales@</code>, <code>admin@</code>) and free providers (Gmail, Yahoo, Hotmail) so you can segment campaigns.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Smart deduplication</h3>
+            <p>Normalizes Gmail dot/plus aliases (<code>j.s+promo@gmail.com</code> ≡ <code>js@gmail.com</code>) and case differences before deduping.</p>
+          </article>
+          <article class="doc-card">
+            <h3>Risk score (0–100)</h3>
+            <p>Combines all signals into a single confidence score. <strong>≥85</strong> Valid · <strong>50–84</strong> Risky · <strong>&lt;50</strong> Invalid.</p>
+          </article>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== Status bar ===== -->
+  <footer class="statusbar">
+    <span class="status-dot"></span>
+    <span id="statusText">Engine ready · Offline mode — your data never leaves this machine</span>
+    <span class="status-spacer"></span>
+    <span class="status-meta" id="statusBuild">ClearCorex 4.0.2 · Windows</span>
+  </footer>
+
+  <!-- ===== Toast ===== -->
+  <div class="toast" id="toast" hidden>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="toastMsg"></span>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

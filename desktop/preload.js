@@ -1,0 +1,14 @@
+// ============================================
+// Preload — exposes a tiny, safe API to the renderer
+// ============================================
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('cc', {
+  version: '4.0.2',
+  platform: process.platform,
+  openFile:     ()    => ipcRenderer.invoke('file:open'),
+  saveFile:     (data) => ipcRenderer.invoke('file:save', data),
+  openExternal: (url)  => ipcRenderer.invoke('app:openExternal', url),
+  minimize:     ()    => ipcRenderer.invoke('app:minimize'),
+  close:        ()    => ipcRenderer.invoke('app:close'),
+});
