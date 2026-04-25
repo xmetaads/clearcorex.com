@@ -195,6 +195,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   flex: 1;
   flex-direction: column;
   gap: 18px;
+  min-height: 0;         /* allow internal panels to scroll instead of pushing the view taller */
 }
 .view.active { display: flex; }
 
@@ -380,6 +381,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 #emailsInput:focus { border-color: var(--primary); }
 
+/* Large-list mode: textarea shows preview only; full data lives in JS memory.
+   Disabling editing prevents accidental loss of the loaded list. */
+#emailsInput.is-large {
+  color: var(--text-mid);
+  background: rgba(59, 130, 246, 0.04);
+  border-color: rgba(59, 130, 246, 0.25);
+  cursor: not-allowed;
+}
+
 /* ===== Output panel / pipeline ===== */
 .output-panel { padding: 0; }
 .pipeline {
@@ -483,6 +493,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 10px 14px 0;
   gap: 4px;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;          /* never let tabs collapse */
 }
 .tab {
   padding: 8px 14px;
@@ -517,7 +528,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .t-count.blue   { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
 
 .table-wrap {
-  flex: 1;
+  flex: 1 1 0;
+  min-height: 0;            /* allow shrink so internal scroll works */
   overflow: auto;
   padding: 0 4px;
 }
@@ -600,6 +612,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 8px;
   justify-content: flex-end;
   background: rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;          /* always pinned to bottom of results panel */
 }
 
 /* ===== History ===== */

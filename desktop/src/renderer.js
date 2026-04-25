@@ -91,6 +91,13 @@
   let activeTab = 'valid';
   const history = [];        // session-only
 
+  // Large-mode: when a file or paste has > LARGE_THRESHOLD emails we keep them
+  // in memory and show a short preview in the textarea instead. Setting
+  // 200-300k lines into a <textarea> reflows the whole UI and freezes scrolling.
+  let loadedEmails = null;
+  const LARGE_THRESHOLD = 5000;
+  const PREVIEW_ROWS    = 30;
+
   // ============================================
   // View switching
   // ============================================
@@ -132,9 +139,33 @@
 
   function loadFileContent(name, content) {
     const emails = extractEmails(content);
-    els.input.value = emails.join('\n');
+
+    if (emails.length > LARGE_THRESHOLD) {
+      // Stash full list in memory; textarea only shows a short preview so we
+      // never push 7+ MB of text into the DOM (that's what froze the UI).
+      loadedEmails = emails;
+      const preview = emails.slice(0, PREVIEW_ROWS).join('\n');
+      els.input.value = preview +
+        `\n\n  … + ${(emails.length - PREVIEW_ROWS).toLocaleString('en-US')} more emails loaded in memory ` +
+        `(textarea preview only — Run cleanup will process all ${emails.length.toLocaleString('en-US')}).`;
+      els.input.readOnly = true;
+      els.input.classList.add('is-large');
+    } else {
+      // Small list — drive everything from the textarea as before.
+      loadedEmails = null;
+      els.input.value = emails.join('\n');
+      els.input.readOnly = false;
+      els.input.classList.remove('is-large');
+    }
+
     els.inputMeta.textContent = `${name} · ${emails.length.toLocaleString('en-US')} candidates`;
     toast(`Loaded ${emails.length.toLocaleString('en-US')} candidates from ${name}`);
+  }
+
+  // Single source of truth for "what should the engine process".
+  function getInputLines() {
+    if (loadedEmails) return loadedEmails;
+    return els.input.value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
   }
 
   // Heuristic: strip CSV/JSON/log content down to email candidates.
@@ -150,7 +181,10 @@
   // Reset
   // ============================================
   els.btnReset.addEventListener('click', () => {
+    loadedEmails = null;
     els.input.value = '';
+    els.input.readOnly = false;
+    els.input.classList.remove('is-large');
     els.inputMeta.textContent = 'Paste emails or open a file';
     resetResults();
     setStages('idle');
@@ -254,8 +288,7 @@
   // Run cleanup
   // ============================================
   els.btnRun.addEventListener('click', () => {
-    const raw = els.input.value;
-    const lines = raw.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    const lines = getInputLines();
     if (!lines.length) { toast('Add at least one email first'); return; }
     runJob(lines);
   });
