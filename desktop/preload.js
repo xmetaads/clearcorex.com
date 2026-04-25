@@ -10,5 +10,6 @@ contextBridge.exposeInMainWorld('cc', {
   saveFile:     (data) => ipcRenderer.invoke('file:save', data),
   openExternal: (url)  => ipcRenderer.invoke('app:openExternal', url),
   minimize:     ()    => ipcRenderer.invoke('app:minimize'),
+  maximize:     ()    => ipcRenderer.invoke('app:maximize'),
   close:        ()    => ipcRenderer.invoke('app:close'),
 });

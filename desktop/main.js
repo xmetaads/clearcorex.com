@@ -23,7 +23,9 @@ function createWindow() {
     backgroundColor: '#0a0e1a',
     title: 'ClearCorex',
     show: false,
+    frame: false,                 // Use our custom in-app titlebar (single X, no OS chrome)
     autoHideMenuBar: true,
+    icon: path.join(__dirname, 'build', 'icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -113,4 +115,9 @@ ipcMain.handle('app:openExternal', (_e, url) => {
 });
 
 ipcMain.handle('app:minimize', () => mainWindow && mainWindow.minimize());
+ipcMain.handle('app:maximize', () => {
+  if (!mainWindow) return;
+  if (mainWindow.isMaximized()) mainWindow.unmaximize();
+  else mainWindow.maximize();
+});
 ipcMain.handle('app:close',    () => mainWindow && mainWindow.close());

@@ -2102,6 +2102,7 @@ input, textarea { font-family: inherit; }
   animation: spin 0.7s linear infinite;
   display: inline-block;
 }
+.dl-spinner[hidden] { display: none !important; }
 
 .modal-error {
   font-size: 13px;

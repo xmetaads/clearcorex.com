@@ -82,6 +82,7 @@
     tcDup:      $('tcDup'),
     // Window controls
     tcMin:      $('tcMin'),
+    tcMax:      $('tcMax'),
     tcClose:    $('tcClose'),
   };
 
@@ -160,6 +161,7 @@
     lastResult = null;
     activeTab = 'valid';
     els.results.hidden = true;
+    els.pipeline.hidden = false;
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'valid'));
     setKpis({ total: 0, valid: 0, invalid: 0, risky: 0, dispo: 0, dup: 0 });
     setPipeline(0, 0, 0);
@@ -304,6 +306,7 @@
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'valid'));
     setTabCounts(counts);
     renderTable();
+    els.pipeline.hidden = true;          // pipeline served its purpose; show results table only
     els.results.hidden = false;
     els.engineMeta.textContent = `Done in ${lastResult.ms} ms · ${rows.length.toLocaleString('en-US')} addresses`;
     setStatus(`Verified ${rows.length.toLocaleString('en-US')} addresses in ${lastResult.ms} ms — ${counts.valid.toLocaleString('en-US')} valid, ${counts.invalid.toLocaleString('en-US')} invalid`);
@@ -472,7 +475,8 @@
   function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   // Window controls
-  els.tcMin.addEventListener('click', () => window.cc && window.cc.minimize());
+  els.tcMin.addEventListener('click',   () => window.cc && window.cc.minimize());
+  els.tcMax.addEventListener('click',   () => window.cc && window.cc.maximize());
   els.tcClose.addEventListener('click', () => window.cc && window.cc.close());
 
   // Keyboard shortcuts

@@ -23,8 +23,15 @@
       </span>
     </div>
     <div class="titlebar-controls">
-      <button class="tc-btn" id="tcMin" aria-label="Minimize">&minus;</button>
-      <button class="tc-btn tc-close" id="tcClose" aria-label="Close">&times;</button>
+      <button class="tc-btn" id="tcMin" aria-label="Minimize" title="Minimize">
+        <svg viewBox="0 0 12 12" width="12" height="12"><path d="M2 6h8" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
+      <button class="tc-btn" id="tcMax" aria-label="Maximize" title="Maximize">
+        <svg viewBox="0 0 12 12" width="12" height="12"><rect x="2" y="2" width="8" height="8" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+      </button>
+      <button class="tc-btn tc-close" id="tcClose" aria-label="Close" title="Close">
+        <svg viewBox="0 0 12 12" width="12" height="12"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
     </div>
   </div>
 

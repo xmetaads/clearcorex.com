@@ -1,0 +1,12 @@
+{
+  "name": "clearcorex-site",
+  "version": "1.0.0",
+  "description": "ClearCorex landing page + Vercel serverless backend",
+  "private": true,
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "nodemailer": "^8.0.6"
+  }
+}
