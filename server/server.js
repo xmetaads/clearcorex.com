@@ -96,50 +96,173 @@ function validateEmail(raw) {
 function htmlEmail({ downloadUrl, lang }) {
   const isVi = lang === 'vi';
   const t = isVi ? {
-    subject: 'Tải ClearCorex Desktop',
-    headline: 'Cảm ơn bạn đã chọn ClearCorex',
-    intro: 'Link tải ClearCorex Desktop cho Windows của bạn đã sẵn sàng:',
-    btn: 'Tải về cho Windows',
-    sub: 'Nếu nút không hoạt động, copy link sau vào trình duyệt:',
-    promise: 'Chúng tôi sẽ gửi email cho bạn khi có phiên bản mới hoặc cập nhật bảo mật. Bạn có thể hủy đăng ký bất cứ lúc nào.',
-    footer: 'Bạn nhận được email này vì đã yêu cầu tải ClearCorex Desktop.'
+    subject: 'Chào mừng đến với ClearCorex — Bản tải về của bạn đã sẵn sàng',
+    preheader: 'Cảm ơn bạn đã chọn ClearCorex. Đây là link tải Windows installer của bạn.',
+    welcome: 'Chào mừng đến với ClearCorex',
+    intro: 'Bạn vừa tham gia cùng <strong>12.000+ team</strong> đang làm sạch danh sách email với engine xác thực chính xác nhất thị trường. Installer Windows của bạn đã sẵn sàng:',
+    btn: 'Tải ClearCorex cho Windows',
+    altLink: 'Hoặc copy link sau vào trình duyệt:',
+    quickStartTitle: 'Bắt đầu nhanh trong 3 bước',
+    qs1: 'Kéo thả file CSV / TXT / JSON (lên đến 50 MB) vào ứng dụng',
+    qs2: 'Bấm <strong>Run cleanup</strong> — engine chạy 6 tầng kiểm tra trên mỗi email',
+    qs3: 'Xuất danh sách sạch về CSV chỉ trong 1 click',
+    promiseTitle: 'Chúng tôi chỉ gửi email cho bạn khi:',
+    p1: 'Có phiên bản mới ra mắt',
+    p2: 'Có bản vá bảo mật quan trọng',
+    p3: 'Không marketing, không spam, không upsell — bao giờ cũng vậy.',
+    helpLine: 'Cần hỗ trợ? Trả lời email này — sẽ có người thật đọc.',
+    signoff: 'Thân,',
+    team: 'Team ClearCorex',
+    footer: 'Bạn nhận được email này vì đã yêu cầu tải ClearCorex Desktop tại clearcorex.com.',
+    unsub: 'Hủy đăng ký'
   } : {
-    subject: 'Download ClearCorex Desktop',
-    headline: 'Thanks for choosing ClearCorex',
-    intro: 'Your download link for ClearCorex Desktop (Windows) is ready:',
-    btn: 'Download for Windows',
-    sub: 'If the button does not work, copy this link into your browser:',
-    promise: "We'll email you when a new version or security update ships. You can unsubscribe any time.",
-    footer: 'You received this email because you requested ClearCorex Desktop.'
+    subject: 'Welcome to ClearCorex — your download is ready',
+    preheader: 'Thanks for choosing ClearCorex. Your Windows installer download link is inside.',
+    welcome: 'Welcome to ClearCorex',
+    intro: 'You just joined <strong>12,000+ teams</strong> who clean their email lists with the most accurate verification engine on the market. Your Windows installer is ready:',
+    btn: 'Download ClearCorex for Windows',
+    altLink: 'Or copy this link into your browser:',
+    quickStartTitle: 'Quick start in 3 steps',
+    qs1: 'Drag any CSV / TXT / JSON file (up to 50 MB) into the app',
+    qs2: 'Hit <strong>Run cleanup</strong> — the engine runs 6 verification layers per email',
+    qs3: 'Export the cleaned list back to CSV in one click',
+    promiseTitle: "We'll only email you when:",
+    p1: 'A new version ships',
+    p2: 'A critical security patch is available',
+    p3: "No marketing, no spam, no upsell — ever.",
+    helpLine: 'Need help? Just reply to this email — a real person reads them.',
+    signoff: 'Cheers,',
+    team: 'The ClearCorex team',
+    footer: 'You received this email because you requested ClearCorex Desktop at clearcorex.com.',
+    unsub: 'Unsubscribe'
   };
 
+  const unsubUrl = `${PUBLIC_URL}/unsubscribe`;
+  const year = new Date().getFullYear();
+
   const html = `<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>${t.subject}</title></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0f172a">
+<html lang="${isVi ? 'vi' : 'en'}"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title>${escapeHtmlEmail(t.subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0f172a;-webkit-font-smoothing:antialiased">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden">${escapeHtmlEmail(t.preheader)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 12px">
   <tr><td align="center">
-    <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(15,23,42,0.06)">
+    <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,23,42,0.08)">
+
+      <!-- Header strip -->
+      <tr><td style="padding:0">
+        <div style="height:4px;background:linear-gradient(90deg,#3b82f6 0%,#8b5cf6 50%,#22d3a4 100%)"></div>
+      </td></tr>
+
+      <!-- Brand -->
       <tr><td style="padding:32px 40px 0">
-        <div style="display:inline-block;background:linear-gradient(135deg,#3b82f6,#22d3a4);color:#fff;padding:8px 14px;border-radius:8px;font-weight:700;letter-spacing:-0.01em">ClearCorex</div>
+        <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+          <td style="background:linear-gradient(135deg,#3b82f6,#22d3a4);width:36px;height:36px;border-radius:9px;text-align:center;vertical-align:middle">
+            <span style="color:#fff;font-weight:800;font-size:14px;font-family:Helvetica,Arial,sans-serif">CC</span>
+          </td>
+          <td style="padding-left:10px;font-weight:700;font-size:17px;color:#0f172a;letter-spacing:-0.01em">ClearCorex</td>
+        </tr></table>
       </td></tr>
-      <tr><td style="padding:24px 40px 8px">
-        <h1 style="margin:0 0 12px;font-size:24px;font-weight:800;letter-spacing:-0.02em;color:#0f172a">${t.headline}</h1>
-        <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#475569">${t.intro}</p>
-        <a href="${downloadUrl}" style="display:inline-block;background:#0f172a;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px">${t.btn}</a>
-        <p style="margin:24px 0 8px;font-size:13px;color:#64748b">${t.sub}</p>
-        <p style="margin:0 0 24px;font-size:13px;color:#3b82f6;word-break:break-all"><a href="${downloadUrl}" style="color:#3b82f6;text-decoration:none">${downloadUrl}</a></p>
-        <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
-        <p style="margin:0 0 12px;font-size:13px;line-height:1.6;color:#475569">${t.promise}</p>
+
+      <!-- Headline -->
+      <tr><td style="padding:28px 40px 0">
+        <h1 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-0.025em;color:#0f172a;line-height:1.2">${escapeHtmlEmail(t.welcome)}</h1>
+        <p style="margin:0 0 26px;font-size:15px;line-height:1.65;color:#475569">${t.intro}</p>
       </td></tr>
-      <tr><td style="padding:20px 40px 32px;background:#f8fafc;border-top:1px solid #e2e8f0">
-        <p style="margin:0;font-size:12px;color:#94a3b8;line-height:1.5">${t.footer}<br/>© ${new Date().getFullYear()} SmartCore LLC</p>
+
+      <!-- CTA Button -->
+      <tr><td style="padding:0 40px">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="left">
+          <a href="${downloadUrl}" style="display:inline-block;background:#0f172a;color:#ffffff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;letter-spacing:-0.01em">
+            ⬇ ${escapeHtmlEmail(t.btn)}
+          </a>
+        </td></tr></table>
+      </td></tr>
+
+      <!-- Alt link -->
+      <tr><td style="padding:18px 40px 0">
+        <p style="margin:0 0 4px;font-size:12.5px;color:#64748b">${escapeHtmlEmail(t.altLink)}</p>
+        <p style="margin:0 0 26px;font-size:12.5px;word-break:break-all"><a href="${downloadUrl}" style="color:#3b82f6;text-decoration:none">${downloadUrl}</a></p>
+      </td></tr>
+
+      <!-- Divider -->
+      <tr><td style="padding:0 40px"><hr style="border:none;border-top:1px solid #e2e8f0;margin:0"></td></tr>
+
+      <!-- Quick start -->
+      <tr><td style="padding:24px 40px 0">
+        <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.06em">${escapeHtmlEmail(t.quickStartTitle)}</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+          <tr><td style="padding:0 0 10px;vertical-align:top;width:30px"><span style="display:inline-block;width:22px;height:22px;background:rgba(34,211,164,0.12);color:#0f172a;border-radius:50%;text-align:center;line-height:22px;font-weight:700;font-size:12px">1</span></td><td style="padding:0 0 10px;font-size:14px;color:#475569;line-height:1.5">${t.qs1}</td></tr>
+          <tr><td style="padding:0 0 10px;vertical-align:top"><span style="display:inline-block;width:22px;height:22px;background:rgba(59,130,246,0.12);color:#0f172a;border-radius:50%;text-align:center;line-height:22px;font-weight:700;font-size:12px">2</span></td><td style="padding:0 0 10px;font-size:14px;color:#475569;line-height:1.5">${t.qs2}</td></tr>
+          <tr><td style="padding:0 0 10px;vertical-align:top"><span style="display:inline-block;width:22px;height:22px;background:rgba(139,92,246,0.12);color:#0f172a;border-radius:50%;text-align:center;line-height:22px;font-weight:700;font-size:12px">3</span></td><td style="padding:0 0 10px;font-size:14px;color:#475569;line-height:1.5">${t.qs3}</td></tr>
+        </table>
+      </td></tr>
+
+      <!-- Promise box -->
+      <tr><td style="padding:18px 40px 0">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px">
+          <tr><td style="padding:16px 18px">
+            <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#0f172a">${escapeHtmlEmail(t.promiseTitle)}</p>
+            <p style="margin:0 0 4px;font-size:13.5px;color:#475569;line-height:1.55">✓ ${escapeHtmlEmail(t.p1)}</p>
+            <p style="margin:0 0 8px;font-size:13.5px;color:#475569;line-height:1.55">✓ ${escapeHtmlEmail(t.p2)}</p>
+            <p style="margin:0;font-size:12.5px;color:#64748b;line-height:1.5;font-style:italic">${escapeHtmlEmail(t.p3)}</p>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <!-- Help -->
+      <tr><td style="padding:24px 40px 0">
+        <p style="margin:0 0 22px;font-size:14px;color:#475569;line-height:1.6">${escapeHtmlEmail(t.helpLine)}</p>
+        <p style="margin:0 0 4px;font-size:14px;color:#475569">${escapeHtmlEmail(t.signoff)}</p>
+        <p style="margin:0 0 32px;font-size:14px;color:#0f172a;font-weight:600">${escapeHtmlEmail(t.team)}</p>
+      </td></tr>
+
+      <!-- Footer -->
+      <tr><td style="padding:20px 40px 28px;background:#f8fafc;border-top:1px solid #e2e8f0">
+        <p style="margin:0 0 8px;font-size:11.5px;color:#94a3b8;line-height:1.6">${escapeHtmlEmail(t.footer)}</p>
+        <p style="margin:0;font-size:11.5px;color:#94a3b8">© ${year} SmartCore LLC · <a href="https://clearcorex.com" style="color:#94a3b8;text-decoration:underline">clearcorex.com</a> · <a href="${unsubUrl}" style="color:#94a3b8;text-decoration:underline">${escapeHtmlEmail(t.unsub)}</a></p>
       </td></tr>
     </table>
   </td></tr>
 </table>
 </body></html>`;
-  return { subject: t.subject, html, text: `${t.headline}\n\n${t.intro}\n${downloadUrl}\n\n${t.promise}` };
+
+  const text = [
+    t.welcome,
+    '',
+    t.intro.replace(/<[^>]+>/g, ''),
+    '',
+    `→ ${t.btn}: ${downloadUrl}`,
+    '',
+    t.quickStartTitle.toUpperCase(),
+    `1. ${t.qs1.replace(/<[^>]+>/g, '')}`,
+    `2. ${t.qs2.replace(/<[^>]+>/g, '')}`,
+    `3. ${t.qs3.replace(/<[^>]+>/g, '')}`,
+    '',
+    t.promiseTitle,
+    `  ✓ ${t.p1}`,
+    `  ✓ ${t.p2}`,
+    `  ${t.p3}`,
+    '',
+    t.helpLine,
+    '',
+    t.signoff,
+    t.team,
+    '',
+    '---',
+    t.footer,
+    `© ${year} SmartCore LLC · clearcorex.com`,
+  ].join('\n');
+
+  return { subject: t.subject, html, text };
+}
+
+function escapeHtmlEmail(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 }
 
 async function sendDownloadEmail(toEmail, lang) {

@@ -8,7 +8,8 @@
       "Bash(CSC_IDENTITY_AUTO_DISCOVERY=false npm run dist)",
       "Bash(MSYS_NO_PATHCONV=1 \"C:/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe\" /nologo /target:exe /platform:x64 /out:7za-wrapper.exe 7za-wrapper.cs)",
       "Bash([ ! -f \"$SEVZIP_DIR/7za-real.exe\" ])",
-      "Bash(C:/Users/admin/Documents/ClearCorex/desktop/node_modules/7zip-bin/win/x64/7za.exe)"
+      "Bash(C:/Users/admin/Documents/ClearCorex/desktop/node_modules/7zip-bin/win/x64/7za.exe)",
+      "Bash(node -e \"const m = require\\('png-to-ico'\\); console.log\\('keys:', Object.keys\\(m\\), 'type:', typeof m, 'default:', typeof m.default\\)\")"
     ]
   }
 }
